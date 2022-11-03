@@ -1,6 +1,4 @@
-using System;
-
-namespace VistoriaDeVeiculos.Models
+namespace VistoriaDeVeiculos.Models.ViewModels
 {
     public class ErrorViewModel
     {
