@@ -5,7 +5,7 @@ namespace VistoriaDeVeiculos.DataContext
 {
     public class Contexto : DbContext
     {
-        public Contexto(DbContextOptions options) : base(options) { }
+        public Contexto(DbContextOptions<Contexto> options) : base(options) { }
 
         public DbSet<FormularioDeInspecao> FormularioDeInspecao { get; set; }
         public DbSet<Motorista> Motorista { get; set; }
@@ -21,7 +21,9 @@ namespace VistoriaDeVeiculos.DataContext
                 x.HasKey(x => x.Id);
 
                 x.Property(x => x.Id)
-                    .ValueGeneratedOnAdd();
+                    .HasColumnName("Id")
+                    .HasColumnType("uniqueidentifier")
+                    .IsRequired();
 
                 x.OwnsOne(x => x.DadosDoFormulario, x =>
                 {

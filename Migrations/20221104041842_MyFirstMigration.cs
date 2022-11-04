@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VistoriaDeVeiculos.Migrations
 {
@@ -10,8 +11,7 @@ namespace VistoriaDeVeiculos.Migrations
                 name: "FormularioDeInspecao",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PeriodicalSemanal = table.Column<string>(type: "varchar(50)", nullable: true),
                     TipoDeTranferencia = table.Column<string>(type: "varchar(50)", nullable: true),
                     DadosDoFormulario_Obra = table.Column<string>(nullable: true),
@@ -31,7 +31,7 @@ namespace VistoriaDeVeiculos.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CNH = table.Column<string>(type: "varchar(50)", nullable: false),
                     Categoria = table.Column<string>(type: "varchar(50)", nullable: false),
-                    FormularioId = table.Column<int>(nullable: false)
+                    FormularioId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,7 +53,7 @@ namespace VistoriaDeVeiculos.Migrations
                     Titulo = table.Column<string>(type: "varchar(50)", nullable: false),
                     Descricao = table.Column<string>(type: "varchar(300)", nullable: true),
                     Resposta = table.Column<string>(type: "varchar(50)", nullable: false),
-                    FormularioId = table.Column<int>(nullable: false)
+                    FormularioId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,7 +74,7 @@ namespace VistoriaDeVeiculos.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Placa = table.Column<string>(type: "varchar(50)", nullable: false),
                     UltimaRevisao = table.Column<string>(type: "varchar(50)", nullable: false),
-                    FormularioId = table.Column<int>(nullable: false)
+                    FormularioId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,4 +1,5 @@
-﻿using VistoriaDeVeiculos.Models.Enums;
+﻿using System;
+using VistoriaDeVeiculos.Models.Enums;
 
 namespace VistoriaDeVeiculos.Models.Entities
 {
@@ -9,7 +10,7 @@ namespace VistoriaDeVeiculos.Models.Entities
         public string Descricao { get; set; }
         public EnumDeResposta TipoDeResposta { get; set; }
 
-        public int FormularioId { get; set; }
+        public Guid FormularioId { get; set; }
         public FormularioDeInspecao FormularioDeInspecao { get; set; }
     }
 }
