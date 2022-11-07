@@ -1,9 +1,21 @@
-﻿@{
+﻿@model VistoriaDeVeiculos.Models.ViewModels.DadosDoPainelDeControleViewModel
+@{
     ViewData["Title"] = "Formulario De Inspecao";
 }
 
-<form asp-controller="FormularioDeInspecao" asp-action="Novo" method="post">
-    <button class="btn btn-info">criar novo formulario de vistoria de veiculo</button>
-</form>
+<div class="row justify-content-around">
+    <div class="alert alert-info text-center col-md-5">
+        Quantidade total de formulários criados: <span class="font-weight-bold">@Model.QuantidadeTotalDeFormulariosCriados</span>
+    </div>
+    <div class="alert alert-info text-center col-md-5">
+        Quantidade de formulários criados hoje: <span class="font-weight-bold">@Model.QuantidadeDeFormulariosCriadosHoje</span>
+    </div>
+</div>
 
-<h1 class="badge badge-info">formulários criados: @ViewBag.QuantidadeDeFormulariosCriados</h1>
+<div class="row text-center">
+    <div class="col">
+        <form asp-controller="FormularioDeInspecao" asp-action="Novo" method="post">
+            <button class="btn btn-info">criar novo formulario de vistoria de veiculo</button>
+        </form>
+    </div>
+</div>

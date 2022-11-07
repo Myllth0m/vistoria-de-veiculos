@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using VistoriaDeVeiculos.DataContext;
-using VistoriaDeVeiculos.Models.Entities;
+using VistoriaDeVeiculos.Models.ViewModels;
+using VistoriaDeVeiculos.Services.ServicoDeFormularioDeInspecao;
+using VistoriaDeVeiculos.Services.ServicoDePainelDeControle;
 
 namespace VistoriaDeVeiculos.Controllers
 {
@@ -17,93 +17,37 @@ namespace VistoriaDeVeiculos.Controllers
             this.contexto = contexto;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(
+            [FromServices] BuscarDadosDoPainelDeControle buscarDadosDoPainelDeControle)
         {
-            ViewBag.QuantidadeDeFormulariosCriados = contexto.FormularioDeInspecao.Count();
+            var dadosDoPainelDeControle = buscarDadosDoPainelDeControle.Executar();
 
-            return View();
+            return View(dadosDoPainelDeControle);
         }
 
         [HttpPost]
-        public IActionResult Novo()
+        public IActionResult Novo(
+            [FromServices] CriarFormularioDeInspecao criarFormularioDeInspecao)
         {
-            var novoFormularioDeInspecao = new FormularioDeInspecao()
-            {
-                Id = Guid.NewGuid(),
-                DadosDoFormulario = new DadosDoFormulario()
-                {
-                    DataDaInspecao = DateTime.Now.ToString(),
-                    NumeroDoFormulario = "",
-                    Obra = "",
-                    PeriodicaSemanal = "",
-                    TipoDeTransferencia = Models.Enums.EnumDeTranferencia.saida,
-                },
-                DadosDoMotorista = new Motorista()
-                {
-                    Cnh = "",
-                    Categoria = "",
-                },
-                DadosDoVeiculo = new Veiculo()
-                {
-                    Placa = "",
-                    UltimaRevisao = "",
-                },
-                Perguntas = new List<Pergunta>()
-                {
-                    new Pergunta()
-                    {
-                        Titulo = "Motorista: vestuário/conduta",
-                        Descricao = "",
-                        TipoDeResposta = Models.Enums.EnumDeResposta.nt,
-                    },
-                    new Pergunta()
-                    {
-                        Titulo = "Documentação do veículo",
-                        Descricao = "",
-                        TipoDeResposta = Models.Enums.EnumDeResposta.nt,
-                    },
-                    new Pergunta()
-                    {
-                        Titulo = "Lanternas",
-                        Descricao = "",
-                        TipoDeResposta = Models.Enums.EnumDeResposta.nt,
-                    },
-                    new Pergunta()
-                    {
-                        Titulo = "Buzinas",
-                        Descricao = "",
-                        TipoDeResposta = Models.Enums.EnumDeResposta.nt,
-                    },
-                    new Pergunta()
-                    {
-                        Titulo = "Luz de freio",
-                        Descricao = "",
-                        TipoDeResposta = Models.Enums.EnumDeResposta.nt,
-                    },
-                }
-            };
+            var formularioId = criarFormularioDeInspecao.Executar();
 
-            contexto.Add(novoFormularioDeInspecao);
-            contexto.SaveChanges();
-
-            return RedirectToAction("Editar", new { formularioId = novoFormularioDeInspecao.Id });
+            return RedirectToAction("Editar", new { formularioId });
         }
 
-        public IActionResult Editar(Guid formularioId)
+        public IActionResult Editar(
+            [FromServices] BuscarFormularioDeInspecao buscarFormularioDeInspecao, 
+            Guid formularioId)
         {
-            var formularioDeInspecao = contexto.FormularioDeInspecao
-                .Include(x => x.DadosDoVeiculo)
-                .Include(x => x.DadosDoMotorista)
-                .Include(x => x.Perguntas)
-                .First(x => x.Id == formularioId);
+            var formularioDeInspecao = buscarFormularioDeInspecao.Executar(formularioId);
 
             return View(formularioDeInspecao);
         }
 
         [HttpPost]
-        public IActionResult Finalizar(FormularioDeInspecao formularioDeInspecao)
+        public IActionResult Finalizar(FormularioDeInspecaoViewModel formularioDeInspecao)
         {
             contexto.Update(formularioDeInspecao);
+            contexto.Update(formularioDeInspecao.Perguntas);
             contexto.SaveChanges();
 
             return RedirectToAction("Index");

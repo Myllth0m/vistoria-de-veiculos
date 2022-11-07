@@ -1,4 +1,4 @@
-﻿@model VistoriaDeVeiculos.Models.Entities.FormularioDeInspecao
+﻿@model VistoriaDeVeiculos.Models.ViewModels.FormularioDeInspecaoViewModel
 @{
     ViewData["Title"] = "Formulario De Inspecao";
 }
@@ -54,13 +54,7 @@
             </div>
             <hr />
             <div class="form-row">
-                @foreach (var pergunta in Model.Perguntas)
-                {
-                    <div class="form-group col-md-6">
-                        <label asp-for="@pergunta.Titulo">@pergunta.Titulo</label>
-                        <input asp-for="@pergunta.TipoDeResposta" class="form-control form-control-sm" value="@pergunta.TipoDeResposta" />
-                    </div>
-                }
+                <partial name="_ListaDePerguntas" model="Model.Perguntas" />
             </div>
             <div class="form-row">
                 <button class="btn btn-info ml-auto">Finalizar</button>
