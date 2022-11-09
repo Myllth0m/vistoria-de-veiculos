@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using VistoriaDeVeiculos.DataContext;
 using VistoriaDeVeiculos.Models.ViewModels;
@@ -35,7 +35,7 @@ namespace VistoriaDeVeiculos.Controllers
         }
 
         public IActionResult Editar(
-            [FromServices] BuscarFormularioDeInspecao buscarFormularioDeInspecao, 
+            [FromServices] BuscarFormularioDeInspecao buscarFormularioDeInspecao,
             Guid formularioId)
         {
             var formularioDeInspecao = buscarFormularioDeInspecao.Executar(formularioId);
@@ -44,10 +44,19 @@ namespace VistoriaDeVeiculos.Controllers
         }
 
         [HttpPost]
-        public IActionResult Finalizar(FormularioDeInspecaoViewModel formularioDeInspecao)
+        public IActionResult SalvarDadosDoVeiculoEMotorista(
+            [FromServices] SalvarDadosDoFormulario salvarDadosDoFormulario, 
+            FormularioDeInspecaoViewModel formularioDeInspecaoViewModel)
         {
-            contexto.Update(formularioDeInspecao);
-            contexto.Update(formularioDeInspecao.Perguntas);
+            var formularioId = salvarDadosDoFormulario.Executar(formularioDeInspecaoViewModel);
+
+            return RedirectToAction("Editar", new { formularioId });
+        }
+
+        [HttpPost]
+        public IActionResult SalvarPerguntas(ICollection<PerguntaViewModel> perguntasDoFormulario)
+        {
+            contexto.Update(perguntasDoFormulario);
             contexto.SaveChanges();
 
             return RedirectToAction("Index");

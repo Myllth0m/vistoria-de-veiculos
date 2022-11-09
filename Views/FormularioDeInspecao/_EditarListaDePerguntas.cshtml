@@ -1,0 +1,17 @@
+﻿@model ICollection<VistoriaDeVeiculos.Models.ViewModels.PerguntaViewModel>
+
+<form asp-controller="FormularioDeInspecao" asp-action="SalvarPerguntas" method="post">
+    <div class="form-row">
+        @foreach (var pergunta in Model)
+        {
+            <div class="form-group col-md-6">
+                <input asp-for="@pergunta.Id" type="hidden" value="@pergunta.Id" />
+                <label asp-for="@pergunta.Titulo">@pergunta.Titulo</label>
+                <input asp-for="@pergunta.TipoDeResposta" class="form-control form-control-sm" value="@pergunta.TipoDeResposta" />
+            </div>
+        }
+    </div>
+    <div class="form-row">
+        <button class="btn btn-info ml-auto">Salvar perguntas do formulário</button>
+    </div>
+</form>

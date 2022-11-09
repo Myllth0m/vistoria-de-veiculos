@@ -41,12 +41,6 @@ namespace VistoriaDeVeiculos.Services.ServicoDeFormularioDeInspecao
                 {
                     new Pergunta()
                     {
-                        Titulo = "Motorista: vestuário/conduta",
-                        Descricao = "",
-                        TipoDeResposta = Models.Enums.EnumDeResposta.nt,
-                    },
-                    new Pergunta()
-                    {
                         Titulo = "Documentação do veículo",
                         Descricao = "",
                         TipoDeResposta = Models.Enums.EnumDeResposta.nt,

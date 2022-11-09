@@ -6,7 +6,7 @@
 <div class="card">
     <div class="card-header">Formulario de Inspecao de Veiculo</div>
     <div class="card-body">
-        <form asp-controller="FormularioDeInspecao" asp-action="Finalizar" method="post">
+        <form asp-controller="FormularioDeInspecao" asp-action="SalvarDadosDoVeiculoEMotorista" method="post">
             <input asp-for="Id" type="hidden" value="@Model.Id" />
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -33,6 +33,7 @@
                 </div>
             </div>
             <div class="form-row">
+                <input asp-for="DadosDoVeiculo.Id" type="hidden" value="@Model.DadosDoVeiculo.Id" />
                 <div class="form-group col-md-6">
                     <label asp-for="DadosDoVeiculo.Placa"></label>
                     <input asp-for="DadosDoVeiculo.Placa" class="form-control form-control-sm" value="@Model.DadosDoVeiculo.Placa" />
@@ -43,6 +44,7 @@
                 </div>
             </div>
             <div class="form-row">
+                <input asp-for="DadosDoMotorista.Id" type="hidden" value="@Model.DadosDoMotorista.Id" />
                 <div class="form-group col-md-6">
                     <label asp-for="DadosDoMotorista.Cnh"></label>
                     <input asp-for="DadosDoMotorista.Cnh" class="form-control form-control-sm" value="@Model.DadosDoMotorista.Cnh" />
@@ -52,13 +54,10 @@
                     <input asp-for="DadosDoMotorista.Categoria" class="form-control form-control-sm" value="@Model.DadosDoMotorista.Categoria" />
                 </div>
             </div>
-            <hr />
             <div class="form-row">
-                <partial name="_ListaDePerguntas" model="Model.Perguntas" />
-            </div>
-            <div class="form-row">
-                <button class="btn btn-info ml-auto">Finalizar</button>
+                <button class="btn btn-info ml-auto">Salvar dados do formulário</button>
             </div>
         </form>
+        <partial name="_EditarListaDePerguntas" model="Model.Perguntas" />
     </div>
 </div>
