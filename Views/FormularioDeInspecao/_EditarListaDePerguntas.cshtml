@@ -1,17 +1,37 @@
 ﻿@model ICollection<VistoriaDeVeiculos.Models.ViewModels.PerguntaViewModel>
 
-<form asp-controller="FormularioDeInspecao" asp-action="SalvarPerguntas" method="post">
-    <div class="form-row">
-        @foreach (var pergunta in Model)
-        {
-            <div class="form-group col-md-6">
-                <input asp-for="@pergunta.Id" type="hidden" value="@pergunta.Id" />
-                <label asp-for="@pergunta.Titulo">@pergunta.Titulo</label>
-                <input asp-for="@pergunta.TipoDeResposta" class="form-control form-control-sm" value="@pergunta.TipoDeResposta" />
+<form id="formulario-de-perguntas">
+    @foreach (var pergunta in Model)
+    {
+        <div class="form-group form-row">
+            <input asp-for="@pergunta.Id" id="@pergunta.Id" type="hidden" value="@pergunta.Id" />
+            <label asp-for="@pergunta.Titulo" class="col">@pergunta.Titulo</label>
+            <div class="col">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-success">
+                        <input type="radio" name="opcoes" id="opcaoBomDaPerunta@(pergunta.Id)" autocomplete="off"> Bom
+                    </label>
+                    <label class="btn btn-outline-danger">
+                        <input type="radio" name="opcoes" id="opcaoRuimDaPerunta@(pergunta.Id)" autocomplete="off"> Ruim
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="radio" name="opcoes" id="opcaoNtDaPerunta@(pergunta.Id)" autocomplete="off" checked> NT
+                    </label>
+                </div>
             </div>
-        }
-    </div>
+        </div>
+    }
     <div class="form-row">
-        <button class="btn btn-info ml-auto">Salvar perguntas do formulário</button>
+        <button class="btn btn-info ml-auto" id="salvar-perguntas-do-formulario">Salvar perguntas do formulário</button>
     </div>
 </form>
+
+<script>
+    let form = document.querySelector('#formulario-de-perguntas')
+    const botao = document.querySelector('#salvar-perguntas-do-formulario')
+
+    botao.addEventListener('click', function (event) {
+        event.preventDefault()
+        console.log(form.opcoes.value)
+    })
+</script>
