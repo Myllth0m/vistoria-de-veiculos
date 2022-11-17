@@ -101,10 +101,6 @@ namespace VistoriaDeVeiculos.DataContext
                     .HasColumnType("varchar(50)")
                     .IsRequired();
 
-                x.Property(x => x.Descricao)
-                    .HasColumnName("Descricao")
-                    .HasColumnType("varchar(300)");
-
                 x.Property(x => x.TipoDeResposta)
                     .HasColumnName("Resposta")
                     .HasColumnType("varchar(50)")
