@@ -42,25 +42,21 @@ namespace VistoriaDeVeiculos.Services.ServicoDeFormularioDeInspecao
                     new Pergunta()
                     {
                         Titulo = "Documentação do veículo",
-                        Descricao = "",
                         TipoDeResposta = Models.Enums.EnumDeResposta.nt,
                     },
                     new Pergunta()
                     {
                         Titulo = "Lanternas",
-                        Descricao = "",
                         TipoDeResposta = Models.Enums.EnumDeResposta.nt,
                     },
                     new Pergunta()
                     {
                         Titulo = "Buzinas",
-                        Descricao = "",
                         TipoDeResposta = Models.Enums.EnumDeResposta.nt,
                     },
                     new Pergunta()
                     {
                         Titulo = "Luz de freio",
-                        Descricao = "",
                         TipoDeResposta = Models.Enums.EnumDeResposta.nt,
                     },
                 }

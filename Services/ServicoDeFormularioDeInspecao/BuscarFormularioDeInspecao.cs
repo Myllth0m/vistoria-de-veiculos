@@ -61,7 +61,6 @@ namespace VistoriaDeVeiculos.Services.ServicoDeFormularioDeInspecao
                 {
                     Id = pergunta.Id,
                     Titulo = pergunta.Titulo,
-                    Descricao = pergunta.Descricao,
                     TipoDeResposta = pergunta.TipoDeResposta,
                 });
             }
