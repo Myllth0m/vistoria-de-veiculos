@@ -3,7 +3,7 @@
     var formularioId = ViewData["formularioId"];
 }
 
-<form id="formulario-de-perguntas">
+<form id="formulario-de-perguntas" onsubmit="salvarPerguntas()">
     <input id="formulario-id" type="hidden" value="@formularioId" />
     @foreach (var pergunta in Model)
     {
@@ -31,11 +31,8 @@
 </form>
 
 <script>
-    const botao = document.querySelector('#salvar-perguntas-do-formulario')
-    const formularioId = document.querySelector('#formulario-id').value
-
-    botao.addEventListener('click', function (event) {
-        event.preventDefault()
+    function salvarPerguntas() {
+        const formularioId = document.querySelector('#formulario-id').value
 
         let quantidadeDePerguntas = document.querySelectorAll('.form-de-perguntas')
         let perguntas = []
@@ -67,5 +64,5 @@
                 console.log('erro')
             }
         })
-    })
+    }
 </script>

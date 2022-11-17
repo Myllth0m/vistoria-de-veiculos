@@ -28,6 +28,7 @@ namespace VistoriaDeVeiculos
             services.AddScoped<BuscarFormularioDeInspecao>();
             services.AddScoped<BuscarDadosDoPainelDeControle>();
             services.AddScoped<SalvarDadosDoFormulario>();
+            services.AddScoped<SalvarPerguntasDoFormulario>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
