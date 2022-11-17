@@ -59,6 +59,6 @@
             </div>
         </form>
         <hr />
-        <partial name="_EditarListaDePerguntas" model="Model.Perguntas" />
+        <partial name="_EditarListaDePerguntas" model="Model.Perguntas" view-data='@new ViewDataDictionary(ViewData) { { "formularioId", Model.Id } }' />
     </div>
 </div>

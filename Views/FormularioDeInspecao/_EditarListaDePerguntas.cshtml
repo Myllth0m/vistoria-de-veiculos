@@ -1,37 +1,71 @@
 ﻿@model ICollection<VistoriaDeVeiculos.Models.ViewModels.PerguntaViewModel>
+@{
+    var formularioId = ViewData["formularioId"];
+}
 
 <form id="formulario-de-perguntas">
+    <input id="formulario-id" type="hidden" value="@formularioId" />
     @foreach (var pergunta in Model)
     {
-        <div class="form-group form-row">
-            <input asp-for="@pergunta.Id" id="@pergunta.Id" type="hidden" value="@pergunta.Id" />
-            <label asp-for="@pergunta.Titulo" class="col">@pergunta.Titulo</label>
+        <div class="form-group form-row form-de-perguntas">
+            <input id="pergunta-id" type="hidden" value="@pergunta.Id" />
+            <label id="pergunta-titulo" class="col">@pergunta.Titulo</label>
             <div class="col">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                     <label class="btn btn-outline-success">
-                        <input type="radio" name="opcoes" id="opcaoBomDaPerunta@(pergunta.Id)" autocomplete="off"> Bom
+                        <input type="radio" name="opcoesDaPergunta@(pergunta.Id)" value="bom"> Bom
                     </label>
                     <label class="btn btn-outline-danger">
-                        <input type="radio" name="opcoes" id="opcaoRuimDaPerunta@(pergunta.Id)" autocomplete="off"> Ruim
+                        <input type="radio" name="opcoesDaPergunta@(pergunta.Id)" value="ruim"> Ruim
                     </label>
                     <label class="btn btn-outline-secondary active">
-                        <input type="radio" name="opcoes" id="opcaoNtDaPerunta@(pergunta.Id)" autocomplete="off" checked> NT
+                        <input type="radio" name="opcoesDaPergunta@(pergunta.Id)" value="nt"> NT
                     </label>
                 </div>
             </div>
         </div>
     }
     <div class="form-row">
-        <button class="btn btn-info ml-auto" id="salvar-perguntas-do-formulario">Salvar perguntas do formulário</button>
+        <button id="salvar-perguntas-do-formulario" class="btn btn-info ml-auto">Salvar perguntas do formulário</button>
     </div>
 </form>
 
 <script>
-    let form = document.querySelector('#formulario-de-perguntas')
     const botao = document.querySelector('#salvar-perguntas-do-formulario')
+    const formularioId = document.querySelector('#formulario-id').value
 
     botao.addEventListener('click', function (event) {
         event.preventDefault()
-        console.log(form.opcoes.value)
+
+        let quantidadeDePerguntas = document.querySelectorAll('.form-de-perguntas')
+        let perguntas = []
+
+        for (var pergunta of quantidadeDePerguntas) {
+            let perguntaId = pergunta.querySelector('#pergunta-id').value
+            let perguntaTitulo = pergunta.querySelector('#pergunta-titulo').textContent
+
+            let respostaDaPergunta = pergunta.querySelector(`input[name=opcoesDaPergunta${perguntaId}]:checked`).value;
+
+            let perguntaViewModel = {
+                id: perguntaId,
+                titulo: perguntaTitulo,
+                tipoDeResposta: respostaDaPergunta,
+            }
+
+            perguntas.push(perguntaViewModel)
+        }
+
+        $.ajax({
+            url: '/FormularioDeInspecao/SalvarPerguntas',
+            method: 'post',
+            async: false,
+            data: { perguntas, formularioId },
+            success: function () {
+                console.log('sucesso')
+            },
+            error: function () {
+                console.log('erro')
+            }
+        })
     })
 </script>

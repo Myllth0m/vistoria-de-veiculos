@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using VistoriaDeVeiculos.DataContext;
+using VistoriaDeVeiculos.Models.Entities;
 using VistoriaDeVeiculos.Models.ViewModels;
 using VistoriaDeVeiculos.Services.ServicoDeFormularioDeInspecao;
 using VistoriaDeVeiculos.Services.ServicoDePainelDeControle;
@@ -45,7 +46,7 @@ namespace VistoriaDeVeiculos.Controllers
 
         [HttpPost]
         public IActionResult SalvarDadosDoVeiculoEMotorista(
-            [FromServices] SalvarDadosDoFormulario salvarDadosDoFormulario, 
+            [FromServices] SalvarDadosDoFormulario salvarDadosDoFormulario,
             FormularioDeInspecaoViewModel formularioDeInspecaoViewModel)
         {
             var formularioId = salvarDadosDoFormulario.Executar(formularioDeInspecaoViewModel);
@@ -54,9 +55,21 @@ namespace VistoriaDeVeiculos.Controllers
         }
 
         [HttpPost]
-        public IActionResult SalvarPerguntas(ICollection<PerguntaViewModel> perguntasDoFormulario)
+        public IActionResult SalvarPerguntas(ICollection<PerguntaViewModel> perguntas, string formularioId)
         {
-            contexto.Update(perguntasDoFormulario);
+            foreach (var perguntaVm in perguntas)
+            {
+                var pergunta = new Pergunta()
+                {
+                    Id = perguntaVm.Id,
+                    Titulo = perguntaVm.Titulo,
+                    TipoDeResposta = perguntaVm.TipoDeResposta,
+                    FormularioId = Guid.Parse(formularioId),
+                };
+
+                contexto.Update(pergunta);
+            }
+
             contexto.SaveChanges();
 
             return RedirectToAction("Index");
