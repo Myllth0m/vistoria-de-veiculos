@@ -53,7 +53,16 @@ namespace VistoriaDeVeiculos.Controllers
         {
             salvarPerguntasDoFormulario.Executar(perguntas, formularioId);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("VisualizarFormularioCompleto", new { formularioId = Guid.Parse(formularioId) });
+        }
+
+        public IActionResult VisualizarFormularioCompleto(
+            [FromServices] BuscarFormularioDeInspecao buscarFormularioDeInspecao,
+            Guid formularioId)
+        {
+            var formularioDeInspecao = buscarFormularioDeInspecao.Executar(formularioId);
+
+            return View(formularioDeInspecao);
         }
     }
 }
