@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Rotativa.AspNetCore;
 using VistoriaDeVeiculos.DataContext;
 using VistoriaDeVeiculos.Services.ServicoDeFormularioDeInspecao;
 using VistoriaDeVeiculos.Services.ServicoDePainelDeControle;
@@ -57,6 +58,8 @@ namespace VistoriaDeVeiculos
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            RotativaConfiguration.Setup("");
         }
     }
 }

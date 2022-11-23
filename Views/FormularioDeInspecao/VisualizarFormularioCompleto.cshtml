@@ -3,3 +3,59 @@
     ViewData["Title"] = "Formulario De Inspecao";
 }
 
+<div class="card">
+    <div class="card-header">Formulario de Inspecao de Veiculo</div>
+    <div class="card-body">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="DadosDoFormulario.PeriodicaSemanal"></label>
+                <input asp-for="DadosDoFormulario.PeriodicaSemanal" class="form-control form-control-sm" value="@Model.DadosDoFormulario.PeriodicaSemanal" readonly/>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="DadosDoFormulario.TipoDeTransferencia"></label>
+                <input asp-for="DadosDoFormulario.TipoDeTransferencia" class="form-control form-control-sm" value="@Model.DadosDoFormulario.TipoDeTransferencia"  readonly/>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="DadosDoFormulario.Obra"></label>
+                <input asp-for="DadosDoFormulario.Obra" class="form-control form-control-sm" value="@Model.DadosDoFormulario.Obra"  readonly/>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="DadosDoFormulario.DataDaInspecao"></label>
+                <input asp-for="DadosDoFormulario.DataDaInspecao" class="form-control form-control-sm" value="@Model.DadosDoFormulario.DataDaInspecao"  readonly/>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="DadosDoFormulario.NumeroDoFormulario"></label>
+                <input asp-for="DadosDoFormulario.NumeroDoFormulario" class="form-control form-control-sm" value="@Model.DadosDoFormulario.NumeroDoFormulario"  readonly/>
+            </div>
+        </div>
+        <div class="form-row">
+            <input asp-for="DadosDoVeiculo.Id" type="hidden" value="@Model.DadosDoVeiculo.Id"  readonly/>
+            <div class="form-group col-md-6">
+                <label asp-for="DadosDoVeiculo.Placa"></label>
+                <input asp-for="DadosDoVeiculo.Placa" class="form-control form-control-sm" value="@Model.DadosDoVeiculo.Placa"  readonly/>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="DadosDoVeiculo.UltimaRevisao"></label>
+                <input asp-for="DadosDoVeiculo.UltimaRevisao" class="form-control form-control-sm" value="@Model.DadosDoVeiculo.UltimaRevisao"  readonly/>
+            </div>
+        </div>
+        <div class="form-row">
+            <input asp-for="DadosDoMotorista.Id" type="hidden" value="@Model.DadosDoMotorista.Id"  readonly/>
+            <div class="form-group col-md-6">
+                <label asp-for="DadosDoMotorista.Cnh"></label>
+                <input asp-for="DadosDoMotorista.Cnh" class="form-control form-control-sm" value="@Model.DadosDoMotorista.Cnh"  readonly/>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="DadosDoMotorista.Categoria"></label>
+                <input asp-for="DadosDoMotorista.Categoria" class="form-control form-control-sm" value="@Model.DadosDoMotorista.Categoria"  readonly/>
+            </div>
+        </div>
+        <div class="form-row">
+            <button class="btn btn-info ml-auto">Salvar dados do formulário</button>
+        </div>
+        <hr />
+        <partial name="_VisualizarListaDePerguntas" model="Model.Perguntas" view-data='@new ViewDataDictionary(ViewData) { { "formularioId", Model.Id } }' />
+    </div>
+</div>

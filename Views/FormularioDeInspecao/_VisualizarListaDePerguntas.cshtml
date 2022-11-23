@@ -1,0 +1,36 @@
+﻿@using VistoriaDeVeiculos.Models.Enums
+@model ICollection<VistoriaDeVeiculos.Models.ViewModels.PerguntaViewModel>
+@{
+    var formularioId = ViewData["formularioId"];
+}
+
+<input id="formulario-id" type="hidden" value="@formularioId" />
+@foreach (var pergunta in Model)
+{
+    <div class="form-group form-row form-de-perguntas">
+        <input id="pergunta-id" type="hidden" value="@pergunta.Id" />
+        <label id="pergunta-titulo" class="col">@pergunta.Titulo</label>
+        <div class="col">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                @if (pergunta.TipoDeResposta.Equals(EnumDeResposta.bom))
+                {
+                    <label class="btn btn-outline-success active">
+                        <input type="radio" name="opcoesDaPergunta@(pergunta.Id)" value="bom"> Bom
+                    </label>
+                }
+                else if (pergunta.TipoDeResposta.Equals(EnumDeResposta.ruim))
+                {
+                    <label class="btn btn-outline-danger active">
+                        <input type="radio" name="opcoesDaPergunta@(pergunta.Id)" value="ruim"> Ruim
+                    </label>
+                }
+                else
+                {
+                    <label class="btn btn-outline-secondary active">
+                        <input type="radio" name="opcoesDaPergunta@(pergunta.Id)" value="nt"> NT
+                    </label>
+                }
+            </div>
+        </div>
+    </div>
+}

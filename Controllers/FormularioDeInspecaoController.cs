@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Rotativa.AspNetCore;
 using VistoriaDeVeiculos.Models.ViewModels;
 using VistoriaDeVeiculos.Services.ServicoDeFormularioDeInspecao;
 using VistoriaDeVeiculos.Services.ServicoDePainelDeControle;
@@ -62,7 +63,7 @@ namespace VistoriaDeVeiculos.Controllers
         {
             var formularioDeInspecao = buscarFormularioDeInspecao.Executar(formularioId);
 
-            return View(formularioDeInspecao);
+            return new ViewAsPdf(formularioDeInspecao);
         }
     }
 }

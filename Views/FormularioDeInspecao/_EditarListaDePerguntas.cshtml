@@ -3,7 +3,7 @@
     var formularioId = ViewData["formularioId"];
 }
 
-<form id="formulario-de-perguntas" onsubmit="salvarPerguntas()">
+<form id="formulario-de-perguntas" onsubmit="salvarPerguntas(event)">
     <input id="formulario-id" type="hidden" value="@formularioId" />
     @foreach (var pergunta in Model)
     {
@@ -31,7 +31,9 @@
 </form>
 
 <script>
-    function salvarPerguntas() {
+    function salvarPerguntas(event) {
+        event.preventDefault()
+
         const formularioId = document.querySelector('#formulario-id').value
 
         let quantidadeDePerguntas = document.querySelectorAll('.form-de-perguntas')
@@ -55,10 +57,18 @@
         $.ajax({
             url: '/FormularioDeInspecao/SalvarPerguntas',
             method: 'post',
-            async: false,
+            async: true,
             data: { perguntas, formularioId },
-            success: function () {
-                console.log('sucesso')
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (data) {
+                console.log(data)
+
+                var blob = new Blob([data], { type: "application/pdf", endings: "native" })
+                var blobLink = URL.createObjectURL(blob);
+
+                window.open(blobLink, "_blank")
             },
             error: function () {
                 console.log('erro')
